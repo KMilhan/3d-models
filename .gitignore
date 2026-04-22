@@ -1,0 +1,12 @@
+.venv/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+*~
+dist/
+build/
+models/out/
+preview_models_fmt.json

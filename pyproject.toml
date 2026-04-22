@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "3dmodels"
+version = "0.1.0"
+description = "Parametric 3D models built with build123d"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bd-warehouse",
+    "build123d>=0.10.0",
+    "jupyter-cadquery>=4.0.2",
+    "jupyterlab>=4.4.10",
+    "ocp-vscode",
+    "scipy>=1.17.1",
+    "shapely>=2.1.2",
+]
+
+[project.scripts]
+airflow150-export = "airflow150.cli:main"
+airflow150-view = "airflow150.view:main"
+rtx3090-fan-guard = "rtx3090_fan_guard.main:main"
+
+[tool.uv.sources]
+bd-warehouse = { git = "https://github.com/gumyr/bd_warehouse.git", rev = "main" }
+build123d = { git = "https://github.com/gumyr/build123d.git", rev = "8105cf1d51e1be3b7b3fc1017c4f56e577c55c4b" }
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
+    "ruff>=0.15.4",
+    "ty>=0.0.20",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src"]
+target-version = "py313"
+extend-exclude = ["*.ipynb", ".ipynb_checkpoints"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/airflow150", "src/rtx3090_fan_guard"]
+
+[tool.ty.environment]
+python-version = "3.13"
+extra-paths = ["src"]
+
+[tool.ty.src]
+respect-ignore-files = true
